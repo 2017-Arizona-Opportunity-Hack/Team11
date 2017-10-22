@@ -109,7 +109,7 @@ window.onload = function() {
   firebase.initializeApp(config);
 
   newList = getNewList();
-  document.getElementById("refresh_button").onclick = function() {
+  document.getElementById("list_form").onsubmit = function() {
     newList = getNewList();
   };
   // RUN FUNCTION TO CONVERT TO HTML AND UPDATE ACTUAL LIST

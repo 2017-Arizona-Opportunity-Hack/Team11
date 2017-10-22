@@ -1,1 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charse="utf-8">
+    <title>Dummy Form</title>
+    <style>
 
+    </style>
+    <script>
+      function toggle(elemId) {
+        var toToggle = document.getElementById(elemId);
+        toToggle.disabled = !toToggle.disabled;
+      }
+      window.onload = function() {
+        document.getElementById("county_any").onclick = function() { toggle("county"); };
+        document.getElementById("school_district_any").onclick = function() { toggle("school_district"); };
+        document.getElementById("school_name_any").onclick = function() { toggle("school_name"); };
+      };
+    </script>
+  </head>
+  <body>
+    <form id="list_form">
+      <table>
+        <tr>
+          <th>County</th>
+          <td>Any: <input type="checkbox" id="county_any"></td>
+          <td>
+            <select id="county" multiple>
+              <option value="test1">Test Value 1</option>
+              <option value="test2">Test Value 2</option>
+              <option value="test3">Test Value 3</option>
+            </select>
+            (Hold <q>Crtl</q> when clicking to select multiple items!)
+          </td>
+        </tr>
+        <tr>
+          <th>District</th>
+          <td>Any: <input type="checkbox" id="school_district_any"></td>
+          <td>
+            <select id="school_district" multiple>
+              <option value="test1">Test Value 1</option>
+              <option value="test2">Test Value 2</option>
+              <option value="test3">Test Value 3</option>
+            </select>
+            (Hold <q>Crtl</q> when clicking to select multiple items!)
+          </td>
+        </tr>
+        <tr>
+          <th>Name</th>
+          <td>Any: <input type="checkbox" id="school_name_any"></td>
+          <td>
+            <select id="school_name" multiple>
+              <option value="test1">Test Value 1</option>
+              <option value="test2">Test Value 2</option>
+              <option value="test3">Test Value 3</option>
+            </select>
+            (Hold <q>Crtl</q> when clicking to select multiple items!)
+          </td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <th>Select Type:</th>
+          <th>Model:</th>
+        </tr>
+        <tr>
+          <td><label>Elementary School</label><input type="checkbox" id="es"></td>
+          <td><label>None</label><input type="checkbox" id="blank"></td>
+        </tr>
+        <tr>
+          <td><label>Middle School</label><input type="checkbox" id="ms"></td>
+          <td><label>Traditional</label><input type="checkbox" id="trad"></td>
+        </tr>
+        <tr>
+          <td><label>High School</label><input type="checkbox" id="hs"></td>
+          <td><label>JA Day</label><input type="checkbox" id="jaday"></td>
+        </tr>
+      </table>
+      <div><label>Title 1:</label><input type="checkbox" id="title1"></div>
+      <div><input type="submit" value="Filter Search" id="list_sub"></div>
+    </form>
+  </body>
+</html>
