@@ -44,9 +44,9 @@ function getNewList() {
       var entry = entries[k];
 
       // filter
-      if (countryAny.checked) {
-        var country = document.getElementById("country");
-
+      if (countyAny.checked) {
+        var county = document.getElementById("country");
+        for (var i = 0; i < country.options.length;)
       }
 
       if (schoolDistrictAny.checked) {
