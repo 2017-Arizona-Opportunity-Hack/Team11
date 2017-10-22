@@ -28,7 +28,8 @@ function getNewList() {
   var db = firebase.database().ref("positions");
   alert("before");
 
-  db.once("child_added", function(data) {
+  db.once("value").then(function(data) {
+    if (!data.exists()) { alert("data does not exist"); }
     alert("in the data function");
     var entries = data.val();
     var keys = Object.keys(entries);
@@ -105,7 +106,7 @@ function getNewList() {
 
 window.onload = function() {
   // get the firebase DB
-  var config = {
+  let config = {
       apiKey: "AIzaSyDgrTSFXKVJSLIWgwLJlWbTXftjb-89fr8",
       authDomain: "ja-arizona-26ebd.firebaseapp.com",
       databaseURL: "https://ja-arizona-26ebd.firebaseio.com",
