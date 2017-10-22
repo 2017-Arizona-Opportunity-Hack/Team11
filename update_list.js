@@ -26,12 +26,12 @@ function getNewList() {
 window.onload = function() {
   // get the firebase DB
   var config = {
-      apiKey: "AIzaSyAgd55aG5L_fMmY_RWfSPIFEyKGSu9-_TY",
-      authDomain: "ja-arizona.firebaseapp.com",
-      databaseURL: "https://ja-arizona.firebaseio.com",
-      projectId: "ja-arizona",
-      storageBucket: "ja-arizona.appspot.com",
-      messagingSenderId: "295885839216"
+      apiKey: "AIzaSyDgrTSFXKVJSLIWgwLJlWbTXftjb-89fr8",
+      authDomain: "ja-arizona-26ebd.firebaseapp.com",
+      databaseURL: "https://ja-arizona-26ebd.firebaseio.com",
+      projectId: "ja-arizona-26ebd",
+      storageBucket: "ja-arizona-26ebd.appspot.com",
+      messagingSenderId: "209276924145"
   };
   firebase.initializeApp(config);
 
