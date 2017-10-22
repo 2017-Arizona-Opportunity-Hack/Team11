@@ -3,11 +3,12 @@
 
 <table style="width:100%" id="events_table">
   <tr>
-    <th>Select</th>
-    <th>Event Name</th> 
-    <th>Begin</th>
-    <th>End</th> 
-   	<th>City</th>
+    <th>Check</th>
+    <th>School</th> 
+    <th>Events</th>
+    <th>Grade Level</th> 
+   	<th>K-12</th>
+   	<th>Title 1</th>
   </tr>
   
 </table>
@@ -47,51 +48,116 @@
 
 	var count=10;
 	var tabNum=1;
-	var curTab=1;
+	var curTab=0;
+	var checkListTable;
 	function initTable(tableData){
 		count = tableData.length;
 		if (count > 10){
-			tabNum = parseInt(count/10)+1;
-
+			if (count%10==0) {
+				tabNum = parseInt(count/10); 
+			}else{
+				tabNum = parseInt(count/10)+1;
+			}
+		}
+		if (tabNum==0){
+			tabNum=1;
 		}
 	}
-	function initPagination(tabNum){
+	//call initTable when website loads.
+	function initPagination(){
 		var pagination = document.getElementByClass('page_inline');
 		for(i=1;i<tabNum;i++){
 			var child = document.createElement('a');
 			var text = document.createTextNode(i+1);
+			child.appendChild(text);
 			child.href= "#";
+			child.onClick = clickNum(i);
+			//set function with index as parameter
 			pagination.insertBefore(child, pagination.childNodes[i+1]);
+			//set new child before raquo
 		}
 	}
-	function clickNum(){
-
+	//run initPagination to get the pagination on the bottom  
+	function clickNum(clickedNum){
+		var pagination = document.getElementById('page_inline');
+		var currentTabA = pagination.childNodes[curTab];
+		currentTabA.removeAttribute('class');
+		currentTabA.onClick = clickNum(curTab);
+		//remove active class from the current tab and add the clickNum function
+		var newTabA = pagination.childNodes[clickedNum];
+		newTabA.removeAttribute('onClick');
+		newTabA.class = 'active';
+		//remove the onClick function and set class attribute to active
+		curTab=clickedNum;
+		//set current tab to clicked tab
+		changeTableOnly();
+		//change the table
 	}
-	function changeTable(){
+	function clearTable(){
 		var table = document.getElementById('events_table');
 		for(i=1;i<table.childNodes.length;i++){
 			table.removeChild(table.childNodes[i]);
 		}
 	}
-
+	function clearPagination(){
+		var pagination = document.getElementById('page_inline');
+		for(i=1;i<pagination.childNodes.length-1;i++){
+			pagination.removeChild(pagination.childNodes[i]);
+		}
+	}
+	function clearAll(){
+		clearTable();
+		clearPagination();
+	}
+	function changeAll(tableData){
+		checkListTable = new Array(tableData.length);
+		checkListTable.forEach(function(checkValue){
+			checkValue=false;
+		});
+		//set the checkbox list
+		initTable();
+		initPagination();
+		editTable(tableData);
+	}
+	function changeTableOnly(){
+		clearTable();
+		editTable();
+	}
+	// remove current table elements after header and executre editTable function
+	function createCheckbox(id_num){
+		var checkbox = document.createElement('input');
+		checkbox.setAttribute('type', 'checkbox');
+		checkbox.id = id_num;
+		return checkbox;
+	}
 	function editTable(tableData) {
 		var table = document.getElementById('events_table');
-
-		tableData.forEach(function(rowData) {
+		var initialIndex = curTab*10;
+		var finalIndex = (curTab+1)*10;
+		if(finalIndex>tableData.length){
+			finalIndex=tableData.length;
+		}
+		for(i=initialIndex;i<finalIndex;i++){
 			var row = document.createElement('tr');
 
+			var checkbox = createCheckbox(i);
+			var checkcell = document.createElement('td');
+			checkcell.appendChild(checkbox);
+			row.appendChild(checkcell);
+
+			var rowData = tableData[i];
 			rowData.forEach(function(cellData) {
 				var cell = document.createElement('td');
 				cell.appendChild(document.createTextNode(cellData));
 				row.appendChild(cell);
 			});
-
 			table.appendChild(row);
-		});
+		}
 
 	}
+	//edit the table to acconnt for last page of table.
 
-	createTable([["row 1, cell 1", "row 1, cell 2"], ["row 2, cell 1", "row 2, cell 2"]]);
+	//createTable([["row 1, cell 1", "row 1, cell 2"], ["row 2, cell 1", "row 2, cell 2"]]);
 
 
 </script>
