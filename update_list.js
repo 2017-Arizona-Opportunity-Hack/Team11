@@ -10,19 +10,24 @@
 
 function getNewList() {
   // grab data from IN
-  var county = document.getElementById().value;
-  var schoolDistrict = document.getElementById().value;
-  var schoolName = document.getElementById().value;
-  var gradeLevel = document.getElementById().value;
-  var k12Model = document.getElementById().value;
-  var eventType = document.getElementById().value;
-  var title1 = document.getElementById().value;
-  var address = document.getElementById().value;
-  var city = document.getElementById().value;
-  var zipCode = document.getElementById().value;
+  // select
+  var county = document.getElementById("county");
+  var schoolDistrict = document.getElementById("school_district");
+  var schoolName = document.getElementById("school_name");
+  var events = document.getElementById("events");
 
-  // format for queries
+  // checkboxes
+  // grade level
+  var es = document.getElementById("es");
+  var ms = document.getElementById("ms");
+  var hs = document.getElementById("hs");
 
+  // k12 model
+  var blank = document.getElementById("blank");
+  var trad = document.getElementById("trad");
+
+  // title1
+  var title1 = document.getElementById("title1");
 
   // run query/queries
 
