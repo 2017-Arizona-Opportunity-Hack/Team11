@@ -61,12 +61,12 @@ function getNewList() {
         var events = document.getElementById("events");
       }
 
-      if (es.checked && entry.es != check) break;
-      if (ms.checked && entry.ms != check) break;
-      if (hs.checked && entry.hs != check) break;
-      if (blank.checked && entry.model != "") break;
-      if (jaDay.checked && entry.model == "JA Day") break;
-      if (trad.checked && (entry.model == "" || entry.model == "JA Day")) break;
+      if (es.checked && entry.es != check) continue;
+      if (ms.checked && entry.ms != check) continue;
+      if (hs.checked && entry.hs != check) continue;
+      if (blank.checked && entry.model != "") continue;
+      if (jaDay.checked && entry.model == "JA Day") continue;
+      if (trad.checked && (entry.model == "" || entry.model == "JA Day")) continue;
 
       // if we are here, the entry is approved
       filteredList.push(entry);
