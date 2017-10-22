@@ -1,13 +1,3 @@
-/*
-  getNewList():
-    - grab data from IN
-    - format for queries
-    - run query/queries
-    - return list
-
-  onload = refresh.click = getNewList()
-*/
-
 var noOpinion = "Any";
 var check = "x";
 
