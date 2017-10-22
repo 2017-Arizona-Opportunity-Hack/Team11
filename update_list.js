@@ -44,7 +44,32 @@ function getNewList() {
       var entry = entries[k];
 
       // filter
+      if (countryAny.checked) {
+        var country = document.getElementById("country");
 
+      }
+
+      if (schoolDistrictAny.checked) {
+        var schoolDistrict = document.getElementById("school_district");
+      }
+
+      if (schoolNameAny.checked) {
+        var schoolName = document.getElementById("school_name");
+      }
+
+      if (eventsAny.checked) {
+        var events = document.getElementById("events");
+      }
+
+      if (es.checked && entry.es != check) break;
+      if (ms.checked && entry.ms != check) break;
+      if (hs.checked && entry.hs != check) break;
+      if (blank.checked && entry.model != "") break;
+      if (jaDay.checked && entry.model == "JA Day") break;
+      if (trad.checked && (entry.model == "" || entry.model == "JA Day")) break;
+
+      // if we are here, the entry is approved
+      filteredList.push(entry);
     }
   });
 
