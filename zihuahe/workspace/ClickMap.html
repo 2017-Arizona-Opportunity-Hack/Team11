@@ -8,9 +8,9 @@
     <style>
        #map {
          
-          height: 100%;
-        //height: 500px;
-        //width: 500px;
+         
+        height: 500px;
+        width: 500px;
        }
        
        /* Optional: Makes the sample page fill the window. */
@@ -31,7 +31,13 @@
       }
       
     </style>
+    
+    
+  
+    
   </head>
+  
+  
   <body>
     <h3>Google Maps Demo for Junior Achievement</h3>
     <div id="map"></div>
@@ -44,8 +50,9 @@
     
     <script>
       function initMap() {
-        var origin={lat: 33.3001135, lng: -112.1186126};
+        var origin={lat: 33.3000802, lng: -111.8385638};
         //TechShop/@33.3001135,-112.1186126,10z
+        //TechShop/@33.3000802,-111.8385638,21z
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 10,
           center: origin
@@ -56,6 +63,7 @@
           //Central+Scottsdale,+Scottsdale,+AZ/@33.5840117,-111.9308961,10z
         });
         
+    
         
         // Create an array of alphabetical characters used to label the markers.
         var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -80,98 +88,118 @@
         var markerCluster = new MarkerClusterer(map, markers,
             {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
     
-        var clickHandler = new ClickEventHandler(map, origin);
+   
+   
+     
         
       }
       
+      
+      
       var locations = [
-        {lat: 33.8569449, lng: -112.1313127},
-        //Anthem+School/@33.8569449,-112.1313127,21z
-        {lat: 33.8478264, lng: -112.1007428},
-        //Diamond+Canyon+Elementary+School/@33.8478264,-112.1007428,21z
-        {lat: 33.8558717, lng: -112.1166238},
-        //Gavilan+Peak+School/@33.8558717,-112.1166238,21z
-        {lat: 33.4729316, lng: -112.3306179},
-        //2150+N+Rancho+Santa+Fe+Blvd,+Avondale,+AZ+85392/@33.4729316,-112.3306179,21z
+        
         {lat: 33.4311141, lng: -112.314091},
         //Estrella+Vista+Elementary/@33.4311141,-112.314091,21z
         {lat: 33.4947827, lng: -112.4915865},
         //Verrado+High+School/@33.4947827,-112.4915865,21z
+        {lat:33.2208813, lng: -111.7591939},
+        //Basha+High+School/@33.2208813,-111.7591939,21z
+        {lat:33.26015, lng: -111.8681377},
+        //Jacobson+Elementary+School/@33.26015,-111.8681377,21z
+        {lat:33.2383742, lng: -111.7804308},
+        //Ryan+Elementary+School/@33.2383742,-111.7804308,21z
+        {lat:33.2537558, lng: -111.8574368},
+        //Basha+Elementary+School/@33.2537558,-111.8574368,21z
+        {lat:33.2279567, lng: -111.7774937},
+        //Carlson+Elementary+School/@33.2279567,-111.7774937,21z
+        {lat:33.3018329, lng: -111.797351},
+        //Humphrey+Elementary+School/@33.3018329,-111.797351,21z
+        {lat:33.2376561, lng: -111.8659392},
+        //Chandler+Traditional+Academy+-+Independence+Campus/@33.2376561,-111.8659392,21z
+        {lat:33.2974478, lng: -111.8313277},
+        //Frye+Elementary+School/@33.2974478,-111.8313277,21z
+        {lat:33.256872, lng: -111.7755372},
+        //Haley+Elementary+School/@33.256872,-111.7755372,21z
+        {lat:33.252443, lng: -111.8425554},
+        //Hamilton+High+School/@33.252443,-111.8425554,21z
         {lat:33.3154577, lng: -111.8185613},
-        //Sanborn+Elementary+School,+700+N+Superstition+Blvd,+Chandler,+AZ+85225/@33.3154577,-111.8185613,21z
-        
+        //Hartford+Sylvia+Encinas+Elementary+School/@33.3153907,-111.8509163,21z
+        {lat:33.3154577, lng: -111.8185613},
+        //Fulton+Elementary+School/@33.235942,-111.8468039,21z
+        {lat:33.211184, lng: -111.7994371},
+        //Hull+Elementary+School/@33.211184,-111.7994371,21z
+        {lat:33.3267218, lng: -111.8731212},
+        //Andersen+Elementary+School/@33.3267218,-111.8731212,21z
+        {lat:33.3250512, lng: -111.852653},
+        //Knox+Gifted+Academy/@33.3250512,-111.852653,21z
+        {lat:333.2117056, lng: -111.7603586},
+        //Navarrete+Elementary+School/@33.2117056,-111.7603586,21z
+        {lat:33.2719837, lng: -111.8667112},
+        //Tarwater+Elementary+School/@33.2719837,-111.8667112,21z
+        {lat:33.2982641, lng: -111.8132646},
+        //Bologna+Elementary+School/@33.2982641,-111.8132646,21z
+        {lat:33.2349883, lng: -111.8135435},
+        //Santan+Elementary+School+%2F+Santan+Junior+High/@33.2349883,-111.8135435,21z
+        {lat:33.270627, lng: -111.8524606},
+        //Hancock+Elementary+School/@33.270627,-111.8524606,21z
+        {lat:33.2355191, lng: -111.8391688},
+        //BASIS+Chandler/@33.2355191,-111.8391688,21z
+        {lat:33.3085813, lng: -111.8745224},
+        //Bright+Beginnings+School/@33.3085813,-111.8745224,21z
+        {lat:33.3393445, lng: -111.8754346},
+        //Dobson+Academy/@33.3393445,-111.8754346,21z
+        {lat:33.3138782, lng: -111.8472408},
+        //St.+Mary-Basha+Catholic+School/@33.3138782,-111.8472408,21z
+        {lat:33.3126317, lng: -111.9370896},
+        //Kyrene+de+la+Mirada+Elementary+School/@33.3126317,-111.9370896,21z
+        {lat:33.3268977, lng: -111.9175098},
+        //Kyrene+del+Cielo+Elementary+School/@33.3268977,-111.9175098,21z
+        {lat:33.3554106, lng: -111.8706267}
+        //Summit+Academy/@33.3554106,-111.8706267,21z
       ]
       
-      /**
-       * @constructor
-       */
-      var ClickEventHandler = function(map, origin) {
-        this.origin = origin;
-        this.map = map;
-        this.directionsService = new google.maps.DirectionsService;
-        this.directionsDisplay = new google.maps.DirectionsRenderer;
-        this.directionsDisplay.setMap(map);
-        this.placesService = new google.maps.places.PlacesService(map);
-        this.infowindow = new google.maps.InfoWindow;
-        this.infowindowContent = document.getElementById('infowindow-content');
-        this.infowindow.setContent(this.infowindowContent);
 
-        // Listen for clicks on the map.
-        this.map.addListener('click', this.handleClick.bind(this));
-      };
-      
-      ClickEventHandler.prototype.handleClick = function(event) {
-        console.log('You clicked on: ' + event.latLng);
-        // If the event has a placeId, use it.
-        if (event.placeId) {
-          console.log('You clicked on place:' + event.placeId);
-
-          // Calling e.stop() on the event prevents the default info window from
-          // showing.
-          // If you call stop here when there is no placeId you will prevent some
-          // other map click event handlers from receiving the event.
-          event.stop();
-          this.calculateAndDisplayRoute(event.placeId);
-          this.getPlaceInformation(event.placeId);
+      window.eqfeed_callback = function(results) {
+        for (var i = 0; i < results.features.length; i++) {
+          var coords = results.features[i].geometry.coordinates;
+          var latLng = new google.maps.LatLng(coords[1],coords[0]);
+          var marker = new google.maps.Marker({
+            position: latLng,
+            map: map
+          });
         }
-      };
+      }
       
-      ClickEventHandler.prototype.calculateAndDisplayRoute = function(placeId) {
-        var me = this;
-        this.directionsService.route({
-          origin: this.origin,
-          destination: {placeId: placeId},
-          travelMode: 'WALKING'
-        }, function(response, status) {
-          if (status === 'OK') {
-            me.directionsDisplay.setDirections(response);
-          } else {
-            window.alert('Directions request failed due to ' + status);
-          }
-        });
-      };
       
-      ClickEventHandler.prototype.getPlaceInformation = function(placeId) {
-        var me = this;
-        this.placesService.getDetails({placeId: placeId}, function(place, status) {
-          if (status === 'OK') {
-            me.infowindow.close();
-            me.infowindow.setPosition(place.geometry.location);
-            me.infowindowContent.children['place-icon'].src = place.icon;
-            me.infowindowContent.children['place-name'].textContent = place.name;
-            me.infowindowContent.children['place-id'].textContent = place.place_id;
-            me.infowindowContent.children['place-address'].textContent =
-                place.formatted_address;
-            me.infowindow.open(me.map);
+      
+      function callback(results, status) {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          for (var i = 0; i < results.length; i++) {
+            createMarker(results[i]);
           }
+        }
+      }
+      
+       function createMarker(place) {
+        var placeLoc = place.geometry.location;
+        var marker = new google.maps.Marker({
+          map: map,
+          position: place.geometry.location
         });
-      };
+
+        google.maps.event.addListener(marker, 'click', function() {
+          infowindow.setContent(place.name);
+          infowindow.open(map, this);
+        });
+      }
       
     </script>
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
     </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDchRyrkIqsuVdbx_r722bhzFGDQPbENwA&callback=initMap">
-    </script>
+
+     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDchRyrkIqsuVdbx_r722bhzFGDQPbENwA&callback=initMap" async defer></script>
+ 
+    
+    
   </body>
 </html>
