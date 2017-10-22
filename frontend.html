@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<table style="width:100%" id="events_table">
+  <tr>
+    <th>Select</th>
+    <th>Event Name</th> 
+    <th>Begin</th>
+    <th>End</th> 
+   	<th>City</th>
+  </tr>
+  
+</table>
+
+<div class="pagination" id="page_inline">
+  <a href="#">&laquo;</a>
+  <a href="#" class="active">1</a>
+  <a href="#">&raquo;</a>
+</div>
+
+<style>
+	table, th, td {
+	    border: 1px solid black;
+	    border-collapse: collapse;
+	}
+	.pagination {
+		display: inline-block;
+	}
+
+	.pagination a {
+		color: black;
+		float: left;
+		padding: 8px 16px;
+		text-decoration: none;
+	}
+
+	.pagination a.active {
+		background-color: #4CAF50;
+		color: white;
+	}
+	.pagination a:hover:not(.active) {
+		background-color: #ddd;
+	}
+</style>
+
+<script type="text/javascript">
+
+	var count=10;
+	var tabNum=1;
+	var curTab=1;
+	function initTable(tableData){
+		count = tableData.length;
+		if (count > 10){
+			tabNum = parseInt(count/10)+1;
+
+		}
+	}
+	function initPagination(tabNum){
+		var pagination = document.getElementByClass('page_inline');
+		for(i=1;i<tabNum;i++){
+			var child = document.createElement('a');
+			var text = document.createTextNode(i+1);
+			child.href= "#";
+			pagination.insertBefore(child, pagination.childNodes[i+1]);
+		}
+	}
+	function clickNum(){
+
+	}
+	function changeTable(){
+		var table = document.getElementById('events_table');
+		for(i=1;i<table.childNodes.length;i++){
+			table.removeChild(table.childNodes[i]);
+		}
+	}
+
+	function editTable(tableData) {
+		var table = document.getElementById('events_table');
+
+		tableData.forEach(function(rowData) {
+			var row = document.createElement('tr');
+
+			rowData.forEach(function(cellData) {
+				var cell = document.createElement('td');
+				cell.appendChild(document.createTextNode(cellData));
+				row.appendChild(cell);
+			});
+
+			table.appendChild(row);
+		});
+
+	}
+
+	createTable([["row 1, cell 1", "row 1, cell 2"], ["row 2, cell 1", "row 2, cell 2"]]);
+
+
+</script>
+
+</html>
