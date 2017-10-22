@@ -3,12 +3,13 @@
     - grab data from IN
     - format for queries
     - run query/queries
-    - return JSON list
+    - return list
 
   onload = refresh.click = getNewList()
 */
 
 var noOpinion = "Any";
+var check = "x";
 
 function getNewList() {
   // grab data from IN
@@ -16,7 +17,7 @@ function getNewList() {
   // for select boxes
   var countyAny = document.getElementById("county_any");
   var schoolDistrictAny = document.getElementById("school_district_any");
-  var schoolName = document.getElementById("school_name_any");
+  var schoolNameAny = document.getElementById("school_name_any");
   var eventsAny = document.getElementById("events_any");
 
   // grade level
@@ -33,14 +34,33 @@ function getNewList() {
   var title1 = document.getElementById("title1");
 
   // run query/queries
+  var filteredList = [];
   var db = firebase.database().ref("positions");
-  db.once("child_added", function(snapshot) {
-    
+  db.once("value", function(snapshot) {
+    var entry = snapshot.val();
+    // filter
+    if (countyAny.checked) {
+
+    }
+
+    if (schoolDistrictAny.checked) {
+
+    }
+
+    if (schoolNameAny.checked) {
+
+    }
+
+    if (eventsAny.checked) {
+
+    }
+
+    if (es.checked && entry.es == "x")
+
   });
 
-  // return JSON list
-
-
+  // return list
+  return filteredList;
 }
 
 window.onload = function() {
