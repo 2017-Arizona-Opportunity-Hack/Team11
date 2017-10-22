@@ -17,9 +17,9 @@
 </table>
 
 <div class="pagination" id="page_inline">
-  <a href="#">&laquo;</a>
-  <a href="#" class="active" id="0">1</a>
-  <a href="#" id="end">&raquo;</a>
+  <a href="#" onclick="leftClick()">&laquo;</a>
+  <a href="#" onclick="rightClick()">&raquo;</a>
+  <p id="text">0/0</p>
 </div>
 </body>
 <style>
@@ -34,22 +34,8 @@
 		text-decoration: none;
 	}
 
-	.pagination a.inactive {
-		display: inline-block;
-		color: black;
-		float: left;
-		padding: 8px 16px;
-		text-decoration: none;
-	}
 
-	.pagination a.active {
-		display: inline-block;
-		float: left;
-		padding: 8px 16px;
-		background-color: #4CAF50;
-		color: white;
-	}
-	.pagination a:hover:not(.active) {
+	.pagination a:hover {
 		background-color: #ddd;
 	}
 </style>
@@ -61,12 +47,15 @@
 
 	var count=10;
 	var tabNum=1;
-	var curTab=0;
-	var checkListTable;
-	var tableDataGlob;
-	
-	function initTable(tableData){
-		count = tableData.length;
+	let curTab=0;
+	let sub=0;
+	let checkListTable;
+	//let tableDataGlob;
+	let position = 0;
+	let table = document.getElementById('events_table');
+	function initTable(){
+		count = tableDataGlob.length;
+
 		if (count > 10){
 			if (count%10==0) {
 				tabNum = parseInt(count/10); 
@@ -77,8 +66,35 @@
 		if (tabNum==0){
 			tabNum=1;
 		}
+		let text = document.getElementById('text');
+		text.innerHTML ="1/"+tabNum;
+
+	}
+
+	function rightClick(){
+		if(curTab<tabNum-1){
+			curTab++;
+			let text = document.getElementById('text');
+			text.innerHTML = (curTab+1)+"/"+tabNum;
+			
+			changeTableOnly();
+			
+		}
+		
+	}
+	function leftClick(){
+		if(curTab>0){
+			curTab--;
+			let text = document.getElementById('text');
+			text.innerHTML= (curTab+1)+"/"+tabNum;	
+			
+			changeTableOnly();
+		
+		}
+		
 	}
 	//call initTable when website loads.
+	/*
 	function initPagination(){
 		var pagination = document.getElementById('page_inline');
 		for(i=1;i<tabNum;i++){
@@ -99,7 +115,9 @@
 			//set new child before raquo
 		}
 	}
+	*/
 	//run initPagination to get the pagination on the bottom  
+	/*
 	function clickNum(clickedNum){
 		console.log("hello");
 		//var pagination = document.getElementById('page_inline');
@@ -113,10 +131,8 @@
 		//var newTabA = pagination.childNodes[clickedNum];
 		console.log(typeof(clickedNum));
 		console.log(clickedNum);
-		let c=clickedNum;
 	//	clickedNum = 
-		console.log(c);
-		let newTabA = document.getElementById(c);
+		var newTabA = document.getElementById(clickedNum);
 		//console.log(typeof(newTabA));
 		newTabA.removeEventListener("click",clickNum);
 		newTabA.class = 'active';
@@ -126,77 +142,105 @@
 		changeTableOnly(tableDataGlob);
 		//change the table
 	}
+	*/
 	function clearTable(){
-		var table = document.getElementById('events_table');
-		for(i=1;i<table.childNodes.length;i++){
-			table.removeChild(table.childNodes[i]);
+		
+		if(sub+1==tabNum&&curTab+2==tabNum){
+			for(j=1;j<(tableDataGlob.length)%10+1;j++){
+				table.deleteRow(1);
+			}
+		}else{
+			for(i=1;i<11;i++){
+			table.deleteRow(1);
 		}
+		}
+		sub=curTab;
+	//	for(i=1;i<table.childElementCount;i++){
+	//		console.log(i);
+	//		table.removeChild(table.childNodes[i]);
+	//	}
 	}
+	/*
 	function clearPagination(){
 		var pagination = document.getElementById('page_inline');
 		for(i=1;i<pagination.childNodes.length-1;i++){
 			pagination.removeChild(pagination.childNodes[i]);
 		}
 	}
+	*/
 	function clearAll(){
 		clearTable();
-		clearPagination();
+		//clearPagination();
 	}
-	function changeAll(tableData){
-		tableDataGlob=tableData;
+	function changeAll(){
+		
 		console.log("hello");
-		checkListTable = new Array(tableData.length);
+		checkListTable = new Array(tableDataGlob.length);
 		checkListTable.forEach(function(checkValue){
 			checkValue=false;
 		});
 		//set the checkbox list
-		initTable(tableData);
-		initPagination();
-		editTable(tableData);
+		initTable();
+	//	initPagination();
+		editTable();
 	}
-	function changeTableOnly(tableData){
+	function changeTableOnly(){
 		clearTable();
-		editTable(tableData);
+		editTable();
 	}
 	// remove current table elements after header and executre editTable function
 	function createCheckbox(id_num){
 		var checkbox = document.createElement('input');
 		checkbox.setAttribute('type', 'checkbox');
-		checkbox.setAttribute('onchange',function(){changeCheckListData(id_num);});
-		checkbox.id = id_num;
+		let tempNum = id_num;
+		checkbox.addEventListener('change',function(){changeCheckListData(tempNum)});
+		checkbox.id = tempNum;
+		checkbox.checked = checkListTable[tempNum];
+		
 		return checkbox;
 	}
 	function changeCheckListData(id){
-		checkListTable[id]=!checkListTable[id];
+		checkListTable[id]= !checkListTable[id];
 	}
 
-	function editTable(tableData) {
-		var table = document.getElementById('events_table');
+	function editTable() {
+		
 		var initialIndex = curTab*10;
-		var finalIndex = (curTab+1)*10;
-		if(finalIndex>tableData.length){
-			finalIndex=tableData.length;
-		}
-		for(i=initialIndex;i<finalIndex;i++){
-			var row = document.createElement('tr');
+		console.log(initialIndex);
 
-			var checkbox = createCheckbox(i);
-			var checkcell = document.createElement('td');
+		var finalIndex = (curTab+1)*10;
+		console.log(finalIndex);
+
+		if(finalIndex>tableDataGlob.length){
+			finalIndex=tableDataGlob.length;
+		}
+		console.log(table.childNodes.length);
+
+		console.log(tableDataGlob.length);
+		for(let i=initialIndex;i<finalIndex;i++){
+			let row = document.createElement('tr');
+
+			let checkbox = createCheckbox(i);
+			let checkcell = document.createElement('td');
 			checkcell.appendChild(checkbox);
 			row.appendChild(checkcell);
 
-			var rowData = tableData[i];
+			let rowData = tableDataGlob[i];
 			rowData.forEach(function(cellData) {
-				var cell = document.createElement('td');
+				let cell = document.createElement('td');
 				cell.appendChild(document.createTextNode(cellData));
 				row.appendChild(cell);
 			});
 			table.appendChild(row);
 		}
+		console.log(table.childNodes.length);
 
 	}
 	//edit the table to acconnt for last page of table
-	changeAll([["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"]]);
+	var tableDataGlob= [["1","2","3","4","5"],["3","2","3","4","5"],["2","2","3","4","5"],["6","2","3","4","5"],["2","3","4","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["3","4","3","46","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1q","2","3","4t","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2asd","3","4a","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"]]
+	changeAll();
+	clearTable();
+	changeAll();
 	//createTable([["row 1, cell 1", "row 1, cell 2"], ["row 2, cell 1", "row 2, cell 2"]]);
 
 
