@@ -3,6 +3,8 @@
 
 <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
 
+
+
 <table style="width:100%" id="events_table">
   <tr>
     <th>Check</th>
@@ -17,7 +19,7 @@
 <div class="pagination" id="page_inline">
   <a href="#">&laquo;</a>
   <a href="#" class="active">1</a>
-  <a href="#">&raquo;</a>
+  <a href="#" id="end">&raquo;</a>
 </div>
 
 <style>
@@ -45,6 +47,9 @@
 	}
 </style>
 
+
+
+
 <script type="text/javascript">
 
 	var count=10;
@@ -66,15 +71,15 @@
 	}
 	//call initTable when website loads.
 	function initPagination(){
-		var pagination = document.getElementByClass('page_inline');
+		var pagination = document.getElementById('page_inline');
 		for(i=1;i<tabNum;i++){
 			var child = document.createElement('a');
 			var text = document.createTextNode(i+1);
 			child.appendChild(text);
 			child.href= "#";
-			child.onClick = clickNum(i);
+			child.setAttribute('onclick',function(){clickNum(i);});
 			//set function with index as parameter
-			pagination.insertBefore(child, pagination.childNodes[i+1]);
+			pagination.insertBefore(child, document.getElementById("end"));
 			//set new child before raquo
 		}
 	}
@@ -83,7 +88,7 @@
 		var pagination = document.getElementById('page_inline');
 		var currentTabA = pagination.childNodes[curTab];
 		currentTabA.removeAttribute('class');
-		currentTabA.onClick = clickNum(curTab);
+		currentTabA.onClick = function(){clickNum(curTab)};
 		//remove active class from the current tab and add the clickNum function
 		var newTabA = pagination.childNodes[clickedNum];
 		newTabA.removeAttribute('onClick');
@@ -111,12 +116,13 @@
 		clearPagination();
 	}
 	function changeAll(tableData){
+		console.log("hello");
 		checkListTable = new Array(tableData.length);
 		checkListTable.forEach(function(checkValue){
 			checkValue=false;
 		});
 		//set the checkbox list
-		initTable();
+		initTable(tableData);
 		initPagination();
 		editTable(tableData);
 	}
@@ -128,9 +134,14 @@
 	function createCheckbox(id_num){
 		var checkbox = document.createElement('input');
 		checkbox.setAttribute('type', 'checkbox');
+		checkbox.setAttribute('onchange',function(){changeCheckListData(id_num);});
 		checkbox.id = id_num;
 		return checkbox;
 	}
+	function changeCheckListData(id){
+		checkListTable[id]=!checkListTable[id];
+	}
+
 	function editTable(tableData) {
 		var table = document.getElementById('events_table');
 		var initialIndex = curTab*10;
@@ -156,8 +167,8 @@
 		}
 
 	}
-	//edit the table to acconnt for last page of table.
-
+	//edit the table to acconnt for last page of table
+	changeAll([["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"]]);
 	//createTable([["row 1, cell 1", "row 1, cell 2"], ["row 2, cell 1", "row 2, cell 2"]]);
 
 
