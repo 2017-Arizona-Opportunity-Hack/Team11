@@ -47,7 +47,8 @@ function getNewList() {
       if (!countyAny.checked) {
         var county = document.getElementById("county");
         for (var i = 0; i < county.options.length; ++i) {
-
+          var item = county.options[i];
+          
         }
       }
 
