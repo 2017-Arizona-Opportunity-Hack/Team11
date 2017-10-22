@@ -36,27 +36,16 @@ function getNewList() {
   // run query/queries
   var filteredList = [];
   var db = firebase.database().ref("positions");
-  db.once("value", function(snapshot) {
-    var entry = snapshot.val();
-    // filter
-    if (countyAny.checked) {
+  ref.once("value", function(data) {
+    var entries = data.val();
+    var keys = Object.keys(entries);
+    for (var i = 0; i < keys.length; ++i) {
+      var k = keys[i];
+      var entry = entries[k];
 
+      // filter
+      
     }
-
-    if (schoolDistrictAny.checked) {
-
-    }
-
-    if (schoolNameAny.checked) {
-
-    }
-
-    if (eventsAny.checked) {
-
-    }
-
-    if (es.checked && entry.es == "x")
-
   });
 
   // return list
