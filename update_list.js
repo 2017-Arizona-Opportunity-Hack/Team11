@@ -55,6 +55,7 @@ function getNewList() {
 
       if (schoolNameAny.checked) {
         var schoolName = document.getElementById("school_name");
+        for (var i = 0; i < name.options.length)
       }
 
       if (eventsAny.checked) {
