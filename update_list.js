@@ -36,7 +36,7 @@ function getNewList() {
   // run query/queries
   var filteredList = [];
   var db = firebase.database().ref("positions");
-  ref.once("value", function(data) {
+  db.once("value", function(data) {
     var entries = data.val();
     var keys = Object.keys(entries);
     for (var i = 0; i < keys.length; ++i) {
@@ -44,7 +44,7 @@ function getNewList() {
       var entry = entries[k];
 
       // filter
-      
+
     }
   });
 
