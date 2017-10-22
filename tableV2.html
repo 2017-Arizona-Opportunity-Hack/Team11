@@ -8,9 +8,9 @@
 <table style="width:80%" id="events_table">
   <tr>
     <th>Check</th>
-    <th>School</th> 
+    <th>School</th>
     <th>Events</th>
-    <th>Grade Level</th> 
+    <th>Grade Level</th>
    	<th>K-12</th>
   	<th>Title 1</th>
   </tr>
@@ -21,7 +21,7 @@
   <a href="#" onclick="rightClick()">&raquo;</a>
   <p id="text">0/0</p>
 </div>
-<button type="button" onclick="submit()">Submit</button> 
+<button type="button" onclick="submit()">Submit</button>
 </body>
 <style>
 	table, th, td {
@@ -59,7 +59,7 @@
 
 		if (count > 10){
 			if (count%10==0) {
-				tabNum = parseInt(count/10); 
+				tabNum = parseInt(count/10);
 			}else{
 				tabNum = parseInt(count/10)+1;
 			}
@@ -77,22 +77,22 @@
 			curTab++;
 			let text = document.getElementById('text');
 			text.innerHTML = (curTab+1)+"/"+tabNum;
-			
+
 			changeTableOnly();
-			
+
 		}
-		
+
 	}
 	function leftClick(){
 		if(curTab>0){
 			curTab--;
 			let text = document.getElementById('text');
-			text.innerHTML= (curTab+1)+"/"+tabNum;	
-			
+			text.innerHTML= (curTab+1)+"/"+tabNum;
+
 			changeTableOnly();
-		
+
 		}
-		
+
 	}
 	//call initTable when website loads.
 	/*
@@ -117,7 +117,7 @@
 		}
 	}
 	*/
-	//run initPagination to get the pagination on the bottom  
+	//run initPagination to get the pagination on the bottom
 	/*
 	function clickNum(clickedNum){
 		console.log("hello");
@@ -132,7 +132,7 @@
 		//var newTabA = pagination.childNodes[clickedNum];
 		console.log(typeof(clickedNum));
 		console.log(clickedNum);
-	//	clickedNum = 
+	//	clickedNum =
 		var newTabA = document.getElementById(clickedNum);
 		//console.log(typeof(newTabA));
 		newTabA.removeEventListener("click",clickNum);
@@ -145,7 +145,7 @@
 	}
 	*/
 	function clearTable(){
-		
+
 		if(sub+1==tabNum&&curTab+2==tabNum){
 			for(j=1;j<(tableDataGlob.length)%10+1;j++){
 				table.deleteRow(1);
@@ -174,7 +174,7 @@
 		//clearPagination();
 	}
 	function changeAll(){
-		
+
 		console.log("hello");
 		checkListTable = new Array(tableDataGlob.length);
 		checkListTable.forEach(function(checkValue){
@@ -197,7 +197,7 @@
 		checkbox.addEventListener('change',function(){changeCheckListData(tempNum)});
 		checkbox.id = tempNum;
 		checkbox.checked = checkListTable[tempNum];
-		
+
 		return checkbox;
 	}
 	function changeCheckListData(id){
@@ -205,7 +205,7 @@
 	}
 
 	function editTable() {
-		
+
 		var initialIndex = curTab*10;
 		console.log(initialIndex);
 
@@ -249,9 +249,9 @@
 
 	function setTableData(listOfObjects){
 		let localObjects = listOfObjects.slice(0);
-		tableDataGlob = new Array(localObjects.length);
-		for(let i=0;i<listOfObjects.length;i++){
-			let object = listOfObjects[i];
+		tableDataGlob = new Array(localObjects.length-1);
+		for(let i=0;i<listOfObjects.length-1;i++){
+			let object = listOfObjects[i+1];
 			let name = object.name;
 			let events = "";
 			if(object.prog_jabt==='x'){
@@ -293,12 +293,12 @@
 	}
 	let retFinal;
 	//edit the table to acconnt for last page of table
-	let tableDataGlob= [["1","2","3","4","5"],["3","2","3","4","5"],["2","2","3","4","5"],["6","2","3","4","5"],["2","3","4","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["3","4","3","46","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1q","2","3","4t","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2asd","3","4a","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"]];
+	//let tableDataGlob= [["1","2","3","4","5"],["3","2","3","4","5"],["2","2","3","4","5"],["6","2","3","4","5"],["2","3","4","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["3","4","3","46","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1q","2","3","4t","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2asd","3","4a","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"]];
 
-	changeAll();
+	//changeAll();
 	//tableDataGlob= [["1","2","3","4","5"],["3","2","3","4","5"],["2","2","3","4","5"],["6","2","3","4","5"],["2","3","4","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"],["1","2","3","4","5"]];
-	clearTable();
-	changeAll();
+	//clearTable();
+	//changeAll();
 	//createTable([["row 1, cell 1", "row 1, cell 2"], ["row 2, cell 1", "row 2, cell 2"]]);
 
 
