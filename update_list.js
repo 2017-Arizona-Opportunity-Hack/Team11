@@ -45,20 +45,45 @@ function getNewList() {
 
       // filter
       if (!countyAny.checked) {
+        isValid = false;
         var county = document.getElementById("county");
         for (var i = 0; i < county.options.length; ++i) {
           var item = county.options[i];
-          
+          if (item.selected && entry.county == item.value) {
+            isValid = true;
+            break;
+          }
         }
+
+        if (!isValid) continue;
       }
 
       if (!schoolDistrictAny.checked) {
+        isValid = false;
         var schoolDistrict = document.getElementById("school_district");
+        for (var i = 0; i < schoolDistrict.options.length; ++i) {
+          var item = schoolDistrict.options[i];
+          if (item.selected && entry.district == item.value) {
+            isValid = true;
+            break;
+          }
+        }
+
+        if (!isValid) continue;
       }
 
       if (!schoolNameAny.checked) {
+        isValid = false;
         var schoolName = document.getElementById("school_name");
-        for (var i = 0; i < name.options.length)
+        for (var i = 0; i < schoolName.options.length; ++i) {
+          var item = schoolName.options[i];
+          if (item.selected && entry.name == item.value) {
+            isValid = true;
+            break;
+          }
+        }
+
+        if (!isValid) continue;
       }
 
       if (eventsAny.checked) {
