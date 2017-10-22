@@ -26,7 +26,10 @@ function getNewList() {
   // run query/queries
   var filteredList = [];
   var db = firebase.database().ref("positions");
-  db.once("value", function(data) {
+  alert("before");
+
+  db.once("child_added", function(data) {
+    alert("in the data function");
     var entries = data.val();
     var keys = Object.keys(entries);
     for (var i = 0; i < keys.length; ++i) {
@@ -90,7 +93,11 @@ function getNewList() {
       // if we are here, the entry is approved
       filteredList.push(entry);
     }
+  }, function(err) {
+    alert("There has been an error");
+    alert(err);
   });
+  alert("after");
 
   // return list
   return filteredList;
@@ -108,8 +115,8 @@ window.onload = function() {
   };
   firebase.initializeApp(config);
 
-  newList = getNewList();
-  document.getElementById("refresh_button").onclick = function() {
+  //newList = getNewList();
+  document.getElementById("list_form").onsubmit = function() {
     newList = getNewList();
   };
   // RUN FUNCTION TO CONVERT TO HTML AND UPDATE ACTUAL LIST
