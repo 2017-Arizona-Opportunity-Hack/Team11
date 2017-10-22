@@ -11,15 +11,15 @@
 function getNewList() {
   // grab data from IN
   var county = document.getElementById().value;
-  var school_district = document.getElementById().value;
-  var school_name = document.getElementById().value;
-  var grade_level = document.getElementById().value;
-  var k12_model = document.getElementById().value;
-  var event_type = document.getElementById().value;
-  var title_1 = document.getElementById().value;
+  var schoolDistrict = document.getElementById().value;
+  var schoolName = document.getElementById().value;
+  var gradeLevel = document.getElementById().value;
+  var k12Model = document.getElementById().value;
+  var eventType = document.getElementById().value;
+  var title1 = document.getElementById().value;
   var address = document.getElementById().value;
   var city = document.getElementById().value;
-  var zip_code = document.getElementById().value;
+  var zipCode = document.getElementById().value;
 
   // format for queries
 
