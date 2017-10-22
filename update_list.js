@@ -27,10 +27,12 @@ function getNewList() {
   var filteredList = [];
   var db = firebase.firestore();
   alert("before");
+  console.log(db);
 
-  db.collection("positions").get().then((data) => {
+  db.collection("positions").doc("gr4Jzz1ZoO4JosHPqSsY").get().then((data) => {
     if (data.exists()) { alert("data does not exist"); }
     data.forEach((entryItem) => {
+      alert("test");
       var isValid = true;
       var entry = doc.data();
 
