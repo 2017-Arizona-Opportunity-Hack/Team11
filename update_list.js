@@ -44,16 +44,18 @@ function getNewList() {
       var entry = entries[k];
 
       // filter
-      if (countyAny.checked) {
-        var county = document.getElementById("country");
-        for (var i = 0; i < country.options.length;)
+      if (!countyAny.checked) {
+        var county = document.getElementById("county");
+        for (var i = 0; i < county.options.length; ++i) {
+
+        }
       }
 
-      if (schoolDistrictAny.checked) {
+      if (!schoolDistrictAny.checked) {
         var schoolDistrict = document.getElementById("school_district");
       }
 
-      if (schoolNameAny.checked) {
+      if (!schoolNameAny.checked) {
         var schoolName = document.getElementById("school_name");
       }
 
