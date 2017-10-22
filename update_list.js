@@ -8,6 +8,8 @@
   onload = refresh.click = getNewList()
 */
 
+var noOpinion = "Any";
+
 function getNewList() {
   // grab data from IN
   // select
@@ -25,6 +27,7 @@ function getNewList() {
   // k12 model
   var blank = document.getElementById("blank");
   var trad = document.getElementById("trad");
+  var jaDay = document.getElementById("jaday");
 
   // title1
   var title1 = document.getElementById("title1");
