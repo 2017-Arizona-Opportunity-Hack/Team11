@@ -5,7 +5,7 @@
 
 <body>
 
-<table style="width:400px" id="events_table">
+<table style="width:80%" id="events_table">
   <tr>
     <th>Check</th>
     <th>School</th> 
@@ -245,6 +245,51 @@
 			}
 		}
 		retFinal=result;
+	}
+
+	function setTableData(listOfObjects){
+		let localObjects = listOfObjects.slice(0);
+		tableDataGlob = new Array(localObjects.length);
+		for(let i=0;i<listOfObjects.length;i++){
+			let object = listOfObjects[i];
+			let name = object.name;
+			let events = "";
+			if(object.prog_jabt==='x'){
+				events=events+"JABT ";
+			}
+			if(object.prog_jafb==='x'){
+				events=events+"JAFB ";
+			}
+			if(object.prog_jasm==='x'){
+				events=events+"JASM ";
+			}
+			if(object.prog_jayh==='x'){
+				events=events+"JAYH ";
+			}
+			if(object.prog_ssmc==='x'){
+				events=events+"SSMC ";
+			}
+			let gradeLevel = "";
+			if(object.es === "x"){
+				gradeLevel = gradeLevel + "ES ";
+			}
+			if(object.ms === "x"){
+				gradeLevel = gradeLevel + "MS ";
+			}
+			if(object.hs === "x"){
+				gradeLevel = gradeLevel + "HS ";
+			}
+			let k12 = object.model();
+			let title1 = "":
+			if(title1===""){
+				title1 = "No";
+			}else{
+				title1 = "Yes";
+			}
+			tableDataGlob[i]=[name, events, gradeLevel, k12, title1];
+		}
+		clearTable();
+		changeAll();
 	}
 	let retFinal;
 	//edit the table to acconnt for last page of table
