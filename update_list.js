@@ -12,13 +12,13 @@ var noOpinion = "Any";
 
 function getNewList() {
   // grab data from IN
-  // select
-  var county = document.getElementById("county");
-  var schoolDistrict = document.getElementById("school_district");
-  var schoolName = document.getElementById("school_name");
-  var events = document.getElementById("events");
-
   // checkboxes
+  // for select boxes
+  var countyAny = document.getElementById("county_any");
+  var schoolDistrictAny = document.getElementById("school_district_any");
+  var schoolName = document.getElementById("school_name_any");
+  var eventsAny = document.getElementById("events_any");
+
   // grade level
   var es = document.getElementById("es");
   var ms = document.getElementById("ms");
@@ -33,7 +33,10 @@ function getNewList() {
   var title1 = document.getElementById("title1");
 
   // run query/queries
-
+  var db = firebase.database().ref("positions");
+  db.once("child_added", function(snapshot) {
+    
+  });
 
   // return JSON list
 
