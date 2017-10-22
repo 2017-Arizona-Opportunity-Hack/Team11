@@ -8663,10 +8663,7 @@ function getNewList() {
   // run query/queries
   var filteredList = [];
 
-  alert("before");
-
   var list = database.positions;
-  console.log(list.length);
   for (var j = 0; j < list.length; ++j) {
     var entry = list[j];
     if (list[i] != null) {
@@ -8740,18 +8737,66 @@ function getNewList() {
     }
   }
 
-  alert("after");
-
-  if (filteredList.length == 0)
-    console.log("list is empty");
-  for (var i = 0; i < filteredList.length; ++i)
-    console.log(filteredList[i].name);
-
   // return list
   return filteredList;
 }
 
+function createOptions() {
+  var list = database.positions;
+  var countySelect = document.getElementById("county");
+  counties = [];
+  for (var i = 0; i < list.length; ++i) {
+      if (list[i] != null) {
+        var val = list[i].county;
+        if (counties.indexOf(val) != -1) continue;
+        counties.push(val);
+
+        var option = document.createElement("option");
+        option.value = val;
+        option.appendChild(document.createTextNode(list[i].county));
+        countySelect.appendChild(option);
+    }
+  }
+
+  var districtSelect = document.getElementById("school_district");
+  districts = [];
+  for (var i = 0; i < list.length; ++i) {
+      if (list[i] != null) {
+        var val = list[i].district;
+        if (districts.indexOf(val) != -1) continue;
+        districts.push(val);
+
+        var option = document.createElement("option");
+        option.value = val;
+        option.appendChild(document.createTextNode(list[i].district));
+        districtSelect.appendChild(option);
+    }
+  }
+
+  var nameSelect = document.getElementById("school_name");
+  for (var i = 0; i < list.length; ++i) {
+      if (list[i] != null) {
+        var option = document.createElement("option");
+        option.value = list[i].name;
+        option.appendChild(document.createTextNode(list[i].name));
+        nameSelect.appendChild(option);
+    }
+  }
+}
+
+function toggle(elemId) {
+  var toToggle = document.getElementById(elemId);
+  toToggle.disabled = !toToggle.disabled;
+}
+
 window.onload = function() {
+  createOptions();
+
+  document.getElementById("county_any").onclick = function() { toggle("county"); };
+  document.getElementById("school_district_any").onclick = function() { toggle("school_district"); };
+  document.getElementById("school_name_any").onclick = function() { toggle("school_name"); };
+  document.getElementById("events_any").onclick = function() { toggle("events"); };
+
   //newList = getNewList();
   document.getElementById("list_form").onsubmit = function() {
     newList = getNewList();
