@@ -6,8 +6,6 @@
     <style>
 
     </style>
-    <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase-firestore.js"></script>
 
     <script>
       function toggle(elemId) {
@@ -54,6 +52,18 @@
           <td>Any: <input type="checkbox" id="school_name_any"></td>
           <td>
             <select id="school_name" multiple>
+              <option value="test1">Test Value 1</option>
+              <option value="test2">Test Value 2</option>
+              <option value="test3">Test Value 3</option>
+            </select>
+            (Hold <q>Crtl</q> when clicking to select multiple items!)
+          </td>
+        </tr>
+        <tr>
+          <th>Events</th>
+          <td>Any: <input type="checkbox" id="events_any"></td>
+          <td>
+            <select id="events" multiple>
               <option value="test1">Test Value 1</option>
               <option value="test2">Test Value 2</option>
               <option value="test3">Test Value 3</option>
