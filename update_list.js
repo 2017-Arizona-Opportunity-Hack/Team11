@@ -25,17 +25,14 @@ function getNewList() {
 
   // run query/queries
   var filteredList = [];
-  var db = firebase.database().ref("positions");
+  var db = firebase.firestore();
   alert("before");
 
-  db.once("value").then(function(data) {
-    if (!data.exists()) { alert("data does not exist"); }
-    alert("in the data function");
-    var entries = data.val();
-    var keys = Object.keys(entries);
-    for (var i = 0; i < keys.length; ++i) {
-      var k = keys[i];
-      var entry = entries[k];
+  db.collection("positions").get().then((data) => {
+    if (data.exists()) { alert("data does not exist"); }
+    data.forEach((entryItem) => {
+      var isValid = true;
+      var entry = doc.data();
 
       // filter
       if (!countyAny.checked) {
@@ -48,8 +45,6 @@ function getNewList() {
             break;
           }
         }
-
-        if (!isValid) continue;
       }
 
       if (!schoolDistrictAny.checked) {
@@ -62,8 +57,6 @@ function getNewList() {
             break;
           }
         }
-
-        if (!isValid) continue;
       }
 
       if (!schoolNameAny.checked) {
@@ -76,27 +69,31 @@ function getNewList() {
             break;
           }
         }
-
-        if (!isValid) continue;
       }
 
-      if (eventsAny.checked) {
+      if (!eventsAny.checked) {
+        isValid = false;
         var events = document.getElementById("events");
+        var schoolName = document.getElementById("school_name");
+        for (var i = 0; i < events.options.length; ++i) {
+          var item = events.options[i];
+          if (item.selected && entry.name == item.value) {
+            isValid = true;
+            break;
+          }
+        }
       }
 
-      if (es.checked && entry.es != check) continue;
-      if (ms.checked && entry.ms != check) continue;
-      if (hs.checked && entry.hs != check) continue;
-      if (blank.checked && entry.model != "") continue;
-      if (jaDay.checked && entry.model == "JA Day") continue;
-      if (trad.checked && (entry.model == "" || entry.model == "JA Day")) continue;
+      if (es.checked && entry.es != check) isValid = false;
+      if (ms.checked && entry.ms != check) isValid = false;
+      if (hs.checked && entry.hs != check) isValid = false;
+      if (blank.checked && entry.model != "") isValid = false;
+      if (jaDay.checked && entry.model == "JA Day") isValid = false;
+      if (trad.checked && (entry.model == "" || entry.model == "JA Day")) isValid = false;
 
       // if we are here, the entry is approved
-      filteredList.push(entry);
-    }
-  }, function(err) {
-    alert("There has been an error");
-    alert(err);
+      if (isValid) filteredList.push(entry);
+    });
   });
   alert("after");
 
