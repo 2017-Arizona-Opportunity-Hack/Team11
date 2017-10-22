@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Marker Clustering</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  
+  
+  <body>
+    <div id="map"></div>
+    <script>
+    
+     var customLabel = {
+        school: {
+          label: 'S'
+        }
+      };
+
+      function initMap() {
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10,
+          center: {lat: 33.6056711, lng: -112.4052392}
+          //33.6056711,-112.4052392,10z
+        });
+        var infoWindow = new google.maps.InfoWindow;
+        // Tempe Center: 33.3920461,-111.9981412,12z
+        // Maricopa County: 33.276445,-112.7476214,9z
+        // Phoenix Center: 33.6056711,-112.4052392,10z
+        // Better Centerpoint: 33.4559297,-111.9702105,11z
+        
+        // Create an array of alphabetical characters used to label the markers.
+        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+        // Add some markers to the map.
+        // Note: The code uses the JavaScript Array.prototype.map() method to
+        // create an array of markers based on a given "locations" array.
+        // The map() method here has nothing to do with the Google Maps API.
+        var markers = locations.map(function(location, i) {
+          return new google.maps.Marker({
+            position: location,
+            label: labels[i % labels.length]
+          });
+        });
+
+        // Add a marker clusterer to manage the markers.
+        var markerCluster = new MarkerClusterer(map, markers,
+            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+      }
+      
+      // Loop through the results array and place a marker for each
+      // set of coordinates.
+    
+      
+      
+      var locations = [
+        {lat: 33.3933052, lng: -111.9509795},
+        //Office of AJ: 33.3933052,-111.9509795,17z
+        {lat: 33.8573575, lng: -112.1340443, zoom: 17},
+        //Anthem School: 33.8566836,-112.1326184,17z
+        //33.8573575,-112.1340443,17z
+        //{lat: 33.8555793, lng: -112.1188977,zoom: 17},
+        //33.8478264,-112.1027947,17z
+        //33.8555793,-112.1188977
+        {lat: 33.8558717, lng: -112.1186757, zoom: 17},
+        //33.8558717,-112.1186757,17z
+        {lat:33.2211301,  lng: -111.7610194, zoom: 17 },
+        //33.2211301,-111.7610194,17z
+        
+      ]
+      
+      
+      
+    </script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDchRyrkIqsuVdbx_r722bhzFGDQPbENwA&callback=initMap">
+    </script>
+  </body>
+</html>

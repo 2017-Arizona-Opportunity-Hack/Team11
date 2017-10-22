@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Marker Clustering</title>
+    <style>
+       #map {
+         
+          height: 100%;
+        //height: 500px;
+        //width: 500px;
+       }
+       
+       /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      
+      .title {
+        font-weight: bold;
+      }
+      #infowindow-content {
+        display: none;
+      }
+      #map #infowindow-content {
+        display: inline;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <h3>Google Maps Demo for Junior Achievement</h3>
+    <div id="map"></div>
+    <div id="infowindow-content">
+      <img id="place-icon" src="" height="16" width="16">
+      <span id="place-name"  class="title"></span><br>
+      Place ID <span id="place-id"></span><br>
+      <span id="place-address"></span>
+    </div>
+    
+    <script>
+      function initMap() {
+        var origin={lat: 33.3001135, lng: -112.1186126};
+        //TechShop/@33.3001135,-112.1186126,10z
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10,
+          center: origin
+       
+          //Scottsdale,+AZ/@33.6744664,-112.1386422,10z
+          //Scottsdale,+AZ/@33.6744664,-112.1386422,10z
+          //Phoenix,+AZ/@33.6056711,-112.4052392,10z
+          //Central+Scottsdale,+Scottsdale,+AZ/@33.5840117,-111.9308961,10z
+        });
+        
+        
+        // Create an array of alphabetical characters used to label the markers.
+        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+        // Add some markers to the map.
+        // Note: The code uses the JavaScript Array.prototype.map() method to
+        // create an array of markers based on a given "locations" array.
+        // The map() method here has nothing to do with the Google Maps API.
+      
+
+     
+       
+        var markers = locations.map(function(location, i) {
+          return new google.maps.Marker({
+            position: location,
+            label: labels[i % labels.length]
+          });
+        });
+
+     
+        // Add a marker clusterer to manage the markers.
+        var markerCluster = new MarkerClusterer(map, markers,
+            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+    
+        var clickHandler = new ClickEventHandler(map, origin);
+        
+      }
+      
+      var locations = [
+        {lat: 33.8569449, lng: -112.1313127},
+        //Anthem+School/@33.8569449,-112.1313127,21z
+        {lat: 33.8478264, lng: -112.1007428},
+        //Diamond+Canyon+Elementary+School/@33.8478264,-112.1007428,21z
+        {lat: 33.8558717, lng: -112.1166238},
+        //Gavilan+Peak+School/@33.8558717,-112.1166238,21z
+        {lat: 33.4729316, lng: -112.3306179},
+        //2150+N+Rancho+Santa+Fe+Blvd,+Avondale,+AZ+85392/@33.4729316,-112.3306179,21z
+        {lat: 33.4311141, lng: -112.314091},
+        //Estrella+Vista+Elementary/@33.4311141,-112.314091,21z
+        {lat: 33.4947827, lng: -112.4915865},
+        //Verrado+High+School/@33.4947827,-112.4915865,21z
+        {lat:33.3154577, lng: -111.8185613},
+        //Sanborn+Elementary+School,+700+N+Superstition+Blvd,+Chandler,+AZ+85225/@33.3154577,-111.8185613,21z
+        
+      ]
+      
+      /**
+       * @constructor
+       */
+      var ClickEventHandler = function(map, origin) {
+        this.origin = origin;
+        this.map = map;
+        this.directionsService = new google.maps.DirectionsService;
+        this.directionsDisplay = new google.maps.DirectionsRenderer;
+        this.directionsDisplay.setMap(map);
+        this.placesService = new google.maps.places.PlacesService(map);
+        this.infowindow = new google.maps.InfoWindow;
+        this.infowindowContent = document.getElementById('infowindow-content');
+        this.infowindow.setContent(this.infowindowContent);
+
+        // Listen for clicks on the map.
+        this.map.addListener('click', this.handleClick.bind(this));
+      };
+      
+      ClickEventHandler.prototype.handleClick = function(event) {
+        console.log('You clicked on: ' + event.latLng);
+        // If the event has a placeId, use it.
+        if (event.placeId) {
+          console.log('You clicked on place:' + event.placeId);
+
+          // Calling e.stop() on the event prevents the default info window from
+          // showing.
+          // If you call stop here when there is no placeId you will prevent some
+          // other map click event handlers from receiving the event.
+          event.stop();
+          this.calculateAndDisplayRoute(event.placeId);
+          this.getPlaceInformation(event.placeId);
+        }
+      };
+      
+      ClickEventHandler.prototype.calculateAndDisplayRoute = function(placeId) {
+        var me = this;
+        this.directionsService.route({
+          origin: this.origin,
+          destination: {placeId: placeId},
+          travelMode: 'WALKING'
+        }, function(response, status) {
+          if (status === 'OK') {
+            me.directionsDisplay.setDirections(response);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+      };
+      
+      ClickEventHandler.prototype.getPlaceInformation = function(placeId) {
+        var me = this;
+        this.placesService.getDetails({placeId: placeId}, function(place, status) {
+          if (status === 'OK') {
+            me.infowindow.close();
+            me.infowindow.setPosition(place.geometry.location);
+            me.infowindowContent.children['place-icon'].src = place.icon;
+            me.infowindowContent.children['place-name'].textContent = place.name;
+            me.infowindowContent.children['place-id'].textContent = place.place_id;
+            me.infowindowContent.children['place-address'].textContent =
+                place.formatted_address;
+            me.infowindow.open(me.map);
+          }
+        });
+      };
+      
+    </script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDchRyrkIqsuVdbx_r722bhzFGDQPbENwA&callback=initMap">
+    </script>
+  </body>
+</html>
